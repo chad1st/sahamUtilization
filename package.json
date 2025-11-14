@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://chad1st.github.io/sahamUtilization/",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
