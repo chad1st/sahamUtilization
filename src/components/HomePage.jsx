@@ -1,16 +1,19 @@
 import { useState } from "react";
 import RightIssueCalculator from "./RightIssueCalculator";
 import BrokerFilterPage from "./BrokerFilter";
+import Stocks from "./Stocks";
 import UnderwriterTrackRecord from "./UnderwriterTrackRecord";
+import IPOCalculator from "./IPOCalculator";
 
 function HomePage() {
   const [activeMenu, setActiveMenu] = useState("Right Issue Calculator");
 
   const menus = [
     "Right Issue Calculator",
+    "IPO Calculator",
     "Bandarmology",
     "Underwriter Track Record",
-    "Tips and Tricks"
+    "Rekomendasi Saham"
   ]
 
   return (
@@ -46,12 +49,9 @@ function HomePage() {
       {/* Main content */}
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-4 md:p-8">
         {activeMenu === "Right Issue Calculator" && <RightIssueCalculator />}
+        {activeMenu === "IPO Calculator" && <IPOCalculator />}
         {activeMenu === "Bandarmology" && <BrokerFilterPage />}
-        {activeMenu === "Stock Split Estimator" && (
-          <div className="text-center text-gray-500 py-10">
-            🧮 Stock Split Estimator coming soon...
-          </div>
-        )}
+        {activeMenu === "Rekomendasi Saham" && <Stocks />}
         {activeMenu === "Underwriter Track Record" && <UnderwriterTrackRecord />}
       </div>
     </div>

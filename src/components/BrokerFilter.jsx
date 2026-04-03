@@ -3,6 +3,7 @@ import { useState } from "react";
 function BrokerFilterPage() {
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const [showUw, setShowUw] = useState(false);
 
   const brokerGroups = {
     "Foreign / Asing (Mayoritas)": ["AI", "AK", "BK", "CG", "CS", "KZ", "MS", "RX", "ZP"],
@@ -14,17 +15,84 @@ function BrokerFilterPage() {
     "Bandar Santai": ["BK", "YU", "CS", "CG", "YP", "KK", "DR", "CC", "PD", "MS"],
   };
 
+  const uwGroups = {
+    "UW Dihindari": [
+      "LS",
+      "AI",
+      "TP",
+      "XA",
+      "DR",
+      "CC",
+      "PD",
+      "EP",
+      "BQ",
+      "PG",
+      "SA",
+      "MI",
+      "YP",
+      "AO",
+      "DR", // duplicate but kept if you want exact list
+      "SH",
+      "CP",
+      "PO"
+    ],
+
+    "UW Aman": [
+      "HP",
+      "KI",
+      "IF",
+      "LG",
+      "YJ",
+      "HD",
+      "RG"
+    ]
+  }
+
   const formattedQuery = query.trim().toUpperCase();
 
   const matchedGroups =
     formattedQuery === ""
       ? []
       : Object.entries(brokerGroups)
-          .filter(([_, brokers]) => brokers.includes(formattedQuery))
-          .map(([group]) => group);
+        .filter(([_, brokers]) => brokers.includes(formattedQuery))
+        .map(([group]) => group);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 p-6">
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 mb-5">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-blue-700">Klasifikasi UW IPO</h1>
+          <button
+            onClick={() => setShowUw(!showUw)}
+            className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium hover:bg-blue-200 transition"
+          >
+            {showUw ? "Collapse" : "📋 Lihat Semua"}
+          </button>
+        </div>
+        {showUw && (
+        <div className="space-y-4">
+          {Object.entries(uwGroups).map(([group, uws]) => (
+            <div
+              key={group}
+              className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition"
+            >
+              <h2 className="font-semibold text-blue-700 mb-2">{group}</h2>
+              <div className="flex flex-wrap gap-2">
+                {uws.map((code) => (
+                  <span
+                    key={code}
+                    className="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium"
+                  >
+                    {code}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        )}
+      </div>
+
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
